@@ -7,12 +7,17 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import exception.NonSufficientFundsException;
@@ -83,5 +88,13 @@ public class AccountOperation {
 
 		// Assert
 		Assertions.assertThrows(NonSufficientFundsException.class, () -> account.withdraw(withdrawalAmount));
+	}
+	
+	@Test
+	void  transaction_to_print() {
+            
+		
+	    // Assert
+	    verify(account, times(1)).printHistory(Mockito.anyList());
 	}
 }

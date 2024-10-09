@@ -2,6 +2,7 @@ package service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 import exception.NonSufficientFundsException;
@@ -52,6 +53,11 @@ public class Account {
 		if (Objects.isNull(amount) || amount.compareTo(BigDecimal.ZERO) <= 0) {
 			throw new IllegalArgumentException("Cannot deposit a negative or null amount");
 		}
+	}
+
+	public void printHistory(List<Transaction> transactionsList) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
