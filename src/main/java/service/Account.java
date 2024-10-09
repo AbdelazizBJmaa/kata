@@ -10,7 +10,7 @@ import model.Transaction;
 
 public class Account {
 
-	private InMemoryTransactions transactions;
+	private final InMemoryTransactions transactions;
 
 	public Account(InMemoryTransactions transactions) {
 		this.transactions = transactions;
@@ -18,28 +18,40 @@ public class Account {
 
 	public void deposit(BigDecimal amount) {
 
-		if (Objects.isNull(amount) || amount.compareTo(BigDecimal.ZERO) <= 0) {
-			throw new IllegalArgumentException("Cannot deposit a negative or null amount");
-		}
+		validateAmount(amount);
 
-		BigDecimal previousBalance = Objects.isNull(transactions.lastBalance()) ? BigDecimal.ZERO : transactions.lastBalance();
-		Transaction transaction = new Transaction(Transaction.Type.DEPOSIT, LocalDateTime.now(), amount,
-				previousBalance.add(amount));
-		transactions.add(transaction);
+		BigDecimal previousBalance = getBalance();
+
+		recordTransaction(Transaction.Type.DEPOSIT, amount, previousBalance);
 	}
 
 	public void withdraw(BigDecimal withdrawalAmount) throws NonSufficientFundsException {
-		BigDecimal previousBalance = Objects.isNull(transactions.lastBalance()) ? BigDecimal.ZERO : transactions.lastBalance();
-		
-		
+		BigDecimal previousBalance = getBalance();
+
+		validateAmount(withdrawalAmount);
+
 		if (previousBalance.compareTo(withdrawalAmount) < 0) {
 			throw new NonSufficientFundsException("Insufficient funds");
 		}
-		
-		Transaction transaction = new Transaction(Transaction.Type.WITHDRAW, LocalDateTime.now(), withdrawalAmount.negate(),
-				previousBalance.subtract(withdrawalAmount));
+
+		recordTransaction(Transaction.Type.WITHDRAW, withdrawalAmount.negate(), previousBalance);
+
+	}
+
+	private void recordTransaction(Transaction.Type type, BigDecimal amount, BigDecimal previousBalance) {
+		Transaction transaction = new Transaction(type, LocalDateTime.now(), amount, previousBalance.add(amount));
 		transactions.add(transaction);
-		
+	}
+
+	private BigDecimal getBalance() {
+		return Objects.isNull(transactions.lastBalance()) ? BigDecimal.ZERO : transactions.lastBalance();
+
+	}
+
+	private void validateAmount(BigDecimal amount) {
+		if (Objects.isNull(amount) || amount.compareTo(BigDecimal.ZERO) <= 0) {
+			throw new IllegalArgumentException("Cannot deposit a negative or null amount");
+		}
 	}
 
 }

@@ -59,11 +59,13 @@ public class AccountOperation {
 	public void transaction_with_a_positive_amount_equals_to_the_balance_for_a_withdraw() throws NonSufficientFundsException {
 
 		// Arrange
-		BigDecimal depositAmount = new BigDecimal("1000.00");
+		BigDecimal depositAmount = new BigDecimal("1500.00");
 		BigDecimal withdrawalAmount = new BigDecimal("500.00");
 
 		// Act
 		account.deposit(depositAmount);
+		
+		when(transactions.lastBalance()).thenReturn(new BigDecimal("1500.00"));
 		account.withdraw(withdrawalAmount);
 
 		// Assert
