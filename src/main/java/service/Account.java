@@ -1,8 +1,10 @@
 package service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import model.InMemoryTransactions;
+import model.Transaction;
 
 public class Account {
 	
@@ -13,8 +15,9 @@ public class Account {
 	}
 
 	public void deposit(BigDecimal amount) {
-		
-		
+		BigDecimal previousBalance = transactions.lastBalance();
+		Transaction transaction = new Transaction(Transaction.Type.DEPOSIT, LocalDateTime.now(), amount, previousBalance);
+		transactions.add(transaction);
 	}
 
 }
