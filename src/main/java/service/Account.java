@@ -2,6 +2,7 @@ package service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import model.InMemoryTransactions;
 import model.Transaction;
@@ -16,7 +17,7 @@ public class Account {
 
 	public void deposit(BigDecimal amount) {
 
-		if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+		if (Objects.isNull(amount) || amount.compareTo(BigDecimal.ZERO) <= 0) {
 			throw new IllegalArgumentException("Cannot deposit a negative or null amount");
 		}
 
