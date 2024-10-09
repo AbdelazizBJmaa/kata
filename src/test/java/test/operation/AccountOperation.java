@@ -1,5 +1,7 @@
 package test.operation;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.times;
@@ -9,15 +11,12 @@ import static org.mockito.Mockito.when;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import exception.NonSufficientFundsException;
@@ -92,9 +91,17 @@ public class AccountOperation {
 	
 	@Test
 	void  transaction_to_print() {
-            
+        
+		//Arrange
+		Transaction transaction = new Transaction(Transaction.Type.DEPOSIT , LocalDateTime.now() , BigDecimal.TEN , BigDecimal.TEN);
 		
-	    // Assert
-	    verify(account, times(1)).printHistory(Mockito.anyList());
+		//Act
+		String line = account.printHistory(List.of(transaction));
+		
+		//Assert
+		assertEquals("operation | date  | amount | balance\n" + "DEPOSIT | 09/10/2024  | 10.00 | 10.00", line);
+	
+		
+		
 	}
 }

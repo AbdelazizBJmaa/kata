@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import exception.NonSufficientFundsException;
 import model.InMemoryTransactions;
@@ -55,8 +56,8 @@ public class Account {
 		}
 	}
 
-	public void printHistory(List<Transaction> transactionsList) {
-		// TODO Auto-generated method stub
+	public String printHistory(List<Transaction> transactionsList) {
+		return null;
 		
 	}
 
