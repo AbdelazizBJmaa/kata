@@ -57,7 +57,10 @@ public class Account {
 	}
 
 	public String printHistory(List<Transaction> transactionsList) {
-		return null;
+		StringBuilder line = new StringBuilder("operation | date  | amount | balance");
+		String tranLines = transactionsList.stream().map(transaction -> new LineFormatter().format(transaction))
+				.collect(Collectors.joining("\n"));
+		return line.append("\n").append(tranLines).toString();
 		
 	}
 
