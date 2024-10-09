@@ -21,14 +21,18 @@ public class Account {
 			throw new IllegalArgumentException("Cannot deposit a negative or null amount");
 		}
 
-		BigDecimal previousBalance = transactions.lastBalance();
+		BigDecimal previousBalance = Objects.isNull(transactions.lastBalance()) ? BigDecimal.ZERO : transactions.lastBalance();
 		Transaction transaction = new Transaction(Transaction.Type.DEPOSIT, LocalDateTime.now(), amount,
-				previousBalance);
+				previousBalance.add(amount));
 		transactions.add(transaction);
 	}
 
 	public void withdraw(BigDecimal withdrawalAmount) {
-		// TODO Auto-generated method stub
+		BigDecimal previousBalance = Objects.isNull(transactions.lastBalance()) ? BigDecimal.ZERO : transactions.lastBalance();
+		
+		Transaction transaction = new Transaction(Transaction.Type.WITHDRAW, LocalDateTime.now(), withdrawalAmount.negate(),
+				previousBalance.subtract(withdrawalAmount));
+		transactions.add(transaction);
 		
 	}
 
