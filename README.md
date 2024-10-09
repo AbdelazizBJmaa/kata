@@ -1,6 +1,6 @@
 ## REQUIREMET
-JAVA 11+  
-MAVEN
+* JAVA 11+  
+* MAVEN
 
 ## RUN TEST
 MVN test
