@@ -2,6 +2,7 @@ package test.operation;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.math.BigDecimal;
@@ -33,7 +34,13 @@ public class AccountOperation {
 	
 	@Test
 	public void init_a_transaction_with_a_positive_amount_for_a_deposit() {
-		account.deposit(BigDecimal.valueOf(100L));
+		//Arrange
+		BigDecimal depositAmount = new BigDecimal(100L);
+		
+		//Act
+		account.deposit(depositAmount);
+		
+		//Assert
 		verify(transactions, atLeastOnce()).add(any(Transaction.class));
 	}
 	
@@ -45,5 +52,21 @@ public class AccountOperation {
 	@Test
 	public void init_a_transaction_with_a_null_amount_for_a_deposit() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> account.deposit(null));
+	}
+	
+	@Test
+	public void transaction_with_a_positive_amount_equals_to_the_balance_for_a_withdraw() {
+		
+	    // Arrange
+	    BigDecimal depositAmount = new BigDecimal("1000.00");
+	    BigDecimal withdrawalAmount = new BigDecimal("500.00");
+		
+	    
+	    //Act
+		account.deposit(depositAmount);
+		account.withdraw(withdrawalAmount);
+		
+		//Assert
+		verify(transactions, times(2)).add(any(Transaction.class));
 	}
 }

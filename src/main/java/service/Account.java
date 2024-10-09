@@ -27,4 +27,9 @@ public class Account {
 		transactions.add(transaction);
 	}
 
+	public void withdraw(BigDecimal withdrawalAmount) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
