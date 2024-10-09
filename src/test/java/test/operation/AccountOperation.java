@@ -41,4 +41,9 @@ public class AccountOperation {
 	public void init_a_transaction_with_a_negative_amount_for_a_deposit() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> account.deposit(BigDecimal.valueOf(-100L)));
 	}
+	
+	@Test
+	public void init_a_transaction_with_a_null_amount_for_a_deposit() {
+		Assertions.assertThrows(IllegalArgumentException.class, () -> account.deposit(null));
+	}
 }
