@@ -56,7 +56,7 @@ public class AccountOperation {
 	}
 
 	@Test
-	public void transaction_with_a_positive_amount_equals_to_the_balance_for_a_withdraw() {
+	public void transaction_with_a_positive_amount_equals_to_the_balance_for_a_withdraw() throws NonSufficientFundsException {
 
 		// Arrange
 		BigDecimal depositAmount = new BigDecimal("1000.00");

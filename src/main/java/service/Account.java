@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import exception.NonSufficientFundsException;
 import model.InMemoryTransactions;
 import model.Transaction;
 
@@ -27,8 +28,13 @@ public class Account {
 		transactions.add(transaction);
 	}
 
-	public void withdraw(BigDecimal withdrawalAmount) {
+	public void withdraw(BigDecimal withdrawalAmount) throws NonSufficientFundsException {
 		BigDecimal previousBalance = Objects.isNull(transactions.lastBalance()) ? BigDecimal.ZERO : transactions.lastBalance();
+		
+		
+		if (previousBalance.compareTo(withdrawalAmount) < 0) {
+			throw new NonSufficientFundsException("Insufficient funds");
+		}
 		
 		Transaction transaction = new Transaction(Transaction.Type.WITHDRAW, LocalDateTime.now(), withdrawalAmount.negate(),
 				previousBalance.subtract(withdrawalAmount));
