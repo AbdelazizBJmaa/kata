@@ -1,6 +1,5 @@
 package test.operation;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
@@ -25,7 +24,7 @@ import model.Transaction;
 import service.Account;
 
 @ExtendWith(MockitoExtension.class)
-public class AccountOperation {
+public class AccountOperationTest {
 
 	private Account account;
 
@@ -93,7 +92,8 @@ public class AccountOperation {
 	void  transaction_to_print() {
         
 		//Arrange
-		Transaction transaction = new Transaction(Transaction.Type.DEPOSIT , LocalDateTime.now() , BigDecimal.TEN , BigDecimal.TEN);
+		LocalDateTime localDateTime = LocalDateTime.of(2024, 10, 9, 0, 0);
+		Transaction transaction = new Transaction(Transaction.Type.DEPOSIT , localDateTime , BigDecimal.TEN , BigDecimal.TEN);
 		
 		//Act
 		String line = account.printHistory(List.of(transaction));

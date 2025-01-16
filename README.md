@@ -1,6 +1,14 @@
+
 ## REQUIREMET
-* JAVA 11+  
+* JAVA 21  
 * MAVEN
+
+# I had update the POM for using the last version
+  - JAVA  
+  - MAVEN Compile
+  - MAVEN Surefire
+  - JUNIT
+  - Mockito 
 
 ## RUN TEST
 MVN test
