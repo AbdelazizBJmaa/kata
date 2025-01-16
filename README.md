@@ -11,7 +11,7 @@
   - Mockito 
 
 ## RUN TEST
-MVN test
+mvn test
 
 # KATA BANK
 
